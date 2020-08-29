@@ -66,12 +66,16 @@ router.put("/update", upload.single("brandImage"), async (req, res, next) => {
   const { _id: id, fa_name, en_name, description } = req.body;
 
   try {
-    const data = await Brand.findByIdAndUpdate(id, {
-      fa_name,
-      en_name,
-      description,
-      icon,
-    });
+    const data = await Brand.findByIdAndUpdate(
+      id,
+      {
+        fa_name,
+        en_name,
+        description,
+        icon,
+      },
+      { new: true }
+    );
     return res.status(200).send({ data, message: "تغییرات اعمال شد" });
   } catch (error) {
     return next(

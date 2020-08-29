@@ -20,6 +20,17 @@ const storage = multer.diskStorage({
         console.error(err);
       }
       cb(null, dir);
+    } else if (
+      req.originalUrl === "/category/new" ||
+      req.originalUrl === "/category/update"
+    ) {
+      const dir = `./upload/images/category/`;
+      try {
+        fs.ensureDirSync(dir);
+      } catch (err) {
+        console.error(err);
+      }
+      cb(null, dir);
     } else if (req.originalUrl == "/admin/slider") {
       let category = file.originalname.split("__")[0];
       if (!file.originalname.includes("__")) category = "main";
@@ -60,6 +71,22 @@ const storage = multer.diskStorage({
         new Date()
           .toISOString()
           .replace(/[+~!`:./ \=@#$%^&*(){}<>,?"']/g, "-") + file.originalname
+      );
+    } else if (
+      req.originalUrl === "/category/new" ||
+      req.originalUrl === "/category/update"
+    ) {
+      const { en_name } = req.body;
+      cb(
+        null,
+        en_name.replace(/[+~!`:./ \=@#$%^&*(){}<>,?"']/g, "-") +
+          "_" +
+          "icon" +
+          "." +
+          file.originalname
+            .split(".")
+            .pop()
+            .replace(/[+~!`:./ \=@#$%^&*(){}<>,?"']/g, "-")
       );
     } else {
       cb(null, "DASHAGH");

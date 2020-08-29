@@ -50,8 +50,7 @@ router.get("/", async (req, res, next) => {
 router.delete("/delete/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
-    const elham = await Category.findByIdAndRemove(id);
-    console.log({ elham });
+    await Category.findByIdAndRemove(id);
     return res
       .status(200)
       .send({ _id: id, message: "دسته بندیه مورد نظر حذف شد" });
@@ -67,12 +66,17 @@ router.put("/update", upload.single("catIcon"), async (req, res, next) => {
   const { _id: id, fa_name, en_name, description } = req.body;
 
   try {
-    const data = await Category.findByIdAndUpdate(id, {
-      fa_name,
-      en_name,
-      description,
-      icon,
-    });
+    const data = await Category.findByIdAndUpdate(
+      id,
+      {
+        fa_name,
+        en_name,
+        description,
+        icon,
+      },
+      { new: true }
+    );
+    console.log({ data });
     return res.status(200).send({ data, message: "تغییرات اعمال شد" });
   } catch (error) {
     return next(

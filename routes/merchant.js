@@ -50,12 +50,12 @@ router.post("/", async (req, res, next) => {
 });
 router.get("/", async (req, res, next) => {
   const { username } = req.query;
-  console.log(username);
   if (username) {
     const result = await Merchant.findOne({ username });
-    console.log(result);
     if (!result) return res.status(204).send();
     res.status(200).send(result);
+  } else {
+    next(Error(400, "user input error", "یوز نیم وارد نشده است"));
   }
 });
 

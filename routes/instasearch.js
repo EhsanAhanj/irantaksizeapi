@@ -6,7 +6,8 @@ const error = require("../scripts/error");
 router.get("/", async (req, res, next) => {
   const { search } = req.query;
 
-  if (!search) return next(error("400", "bad request", "query required", ""));
+  if (!search)
+    return next(error("400", "bad request", "یوز نیم وارد نشده است", ""));
 
   try {
     const ig = await initialIgAndLogin();
