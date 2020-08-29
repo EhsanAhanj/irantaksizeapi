@@ -15,6 +15,7 @@ const { initialDb } = require("./helpers");
 const merchantRoutes = require("./routes/merchant");
 const instasearchRoutes = require("./routes/instasearch");
 const brandRoutes = require("./routes/brand");
+const categoryRoutes = require("./routes/category");
 
 app.use(morgan("dev"));
 app.use(helemt());
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 app.use("/merchant", merchantRoutes);
 app.use("/instasearch", instasearchRoutes);
 app.use("/brand", brandRoutes);
+app.use("/category", categoryRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
